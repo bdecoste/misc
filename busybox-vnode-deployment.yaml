@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vnode-busybox
+  labels:
+    app: vnode-busybox
+spec:
+  selector:
+    matchLabels:
+      app: vnode-busybox
+  template:
+    metadata:
+      labels:
+        app: vnode-busybox
+    spec:
+      runtimeClassName: vnode
+      containers:
+        - name: breakout
+          image: busybox
+          command:
+            - /bin/sh
+          args:
+            - '-c'
+            - sleep 10000
+          securityContext:
+            privileged: true
+          volumeMounts:
+          - name: host-fs
+            mountPath: /host
+      nodeSelector:
+        kubernetes.io/hostname: kind-control-plane 
+      hostNetwork: true
+      hostPID: true
+      volumes:
+      - name: host-fs
+        hostPath:
+          path: /
