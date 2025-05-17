@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: breakout-busybox
+  name: privileged-busybox
   labels:
-    app: breakout-busybox
+    app: privileged-busybox
 spec:
   selector:
     matchLabels:
-      app: breakout-busybox
+      app: privileged-busybox
   template:
     metadata:
       labels:
-        app: breakout-busybox
+        app: privileged-busybox
     spec:
       containers:
-        - name: breakout
+        - name: privileged
           image: busybox
           command:
             - /bin/sh
@@ -26,8 +26,6 @@ spec:
           volumeMounts:
           - name: host-fs
             mountPath: /host
-      hostNetwork: true
-      hostPID: true
       hostUsers: true
       nodeSelector:
         kubernetes.io/hostname: i-03437d75b087648da.us-east-2.compute.internal

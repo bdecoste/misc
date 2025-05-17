@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: breakout-busybox
+  name: usernamespace-busybox
   labels:
-    app: breakout-busybox
+    app: usernamespace-busybox
 spec:
   selector:
     matchLabels:
-      app: breakout-busybox
+      app: usernamespace-busybox
   template:
     metadata:
       labels:
-        app: breakout-busybox
+        app: usernamespace-busybox
     spec:
       containers:
-        - name: breakout
+        - name: usernamespace
           image: busybox
           command:
             - /bin/sh
@@ -22,13 +22,11 @@ spec:
             - '-c'
             - sleep 10000
           securityContext:
-            privileged: true
+            privileged: false
           volumeMounts:
           - name: host-fs
             mountPath: /host
-      hostNetwork: true
-      hostPID: true
-      hostUsers: true
+      hostUsers: false
       nodeSelector:
         kubernetes.io/hostname: i-03437d75b087648da.us-east-2.compute.internal
 #        kubernetes.io/hostname: gke-loft-prod-worker-na-e2-node-pool-5beaac39-hv6l

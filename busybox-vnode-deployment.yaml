@@ -15,7 +15,7 @@ spec:
     spec:
       runtimeClassName: vnode
       containers:
-        - name: breakout
+        - name: vnode
           image: busybox
           command:
             - /bin/sh
@@ -27,10 +27,12 @@ spec:
           volumeMounts:
           - name: host-fs
             mountPath: /host
-      nodeSelector:
-        kubernetes.io/hostname: kind-control-plane 
       hostNetwork: true
       hostPID: true
+      hostUsers: true
+      nodeSelector:
+        kubernetes.io/hostname: i-03437d75b087648da.us-east-2.compute.internal
+#        kubernetes.io/hostname: gke-loft-prod-worker-na-e2-node-pool-5beaac39-hv6l
       volumes:
       - name: host-fs
         hostPath:
